@@ -79,8 +79,6 @@ public final class UserManagementCli {
 
   private void printMenu() {
     console.println();
-    // VIOLACIÓN Regla 10: se usa el String literal "==================..." hardcodeado directamente
-    // en vez de reutilizar la constante MENU_BORDER que ya está definida en la misma clase.
     console.println(MENU_BORDER);
     console.println("    Main Menu");
     console.println(MENU_BORDER);

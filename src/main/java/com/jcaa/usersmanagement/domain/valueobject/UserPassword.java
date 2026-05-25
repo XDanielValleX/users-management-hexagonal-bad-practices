@@ -10,9 +10,6 @@ public final class UserPassword {
   private static final int BCRYPT_COST = 12;
   private static final String PASSWORD_CANNOT_BE_NULL = "Password cannot be null";
 
-  // VIOLACIÓN Regla 10: se eliminaron las constantes MINIMUM_LENGTH y BCRYPT_COST
-  // Los valores 8 y 12 son magic numbers — deben definirse como constantes con nombre descriptivo
-
   private final String value;
 
   private UserPassword(final String value) {
