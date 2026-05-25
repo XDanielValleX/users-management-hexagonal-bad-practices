@@ -32,8 +32,6 @@ public final class UserRepositoryMySQL
         GetAllUsersPort,
         DeleteUserPort {
 
-  // VIOLACIÓN Regla 4 (consecuencia): el mapper ya no es @UtilityClass,
-  // por lo que se instancia directamente aquí en vez de usarse como clase utilitaria.
   private static final String SQL_INSERT =
       "INSERT INTO users "
       + "(id, name, email, password, role, status, created_at, updated_at) "
