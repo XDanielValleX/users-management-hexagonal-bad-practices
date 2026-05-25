@@ -20,13 +20,11 @@ public final class EmailSenderException extends DomainException {
 
   public static EmailSenderException becauseSmtpFailed(
       final String destinationEmail, final String smtpError) {
-    // VIOLACIÓN Regla 10: texto hardcodeado directamente — debe ser una constante.
     return new EmailSenderException(
         String.format(SMTP_FAILED_TEMPLATE, destinationEmail, smtpError));
   }
 
   public static EmailSenderException becauseSendFailed(final Throwable cause) {
-    // VIOLACIÓN Regla 10: texto hardcodeado directamente — debe ser una constante.
     return new EmailSenderException(SEND_FAILED_MESSAGE, cause);
   }
 }

@@ -11,12 +11,10 @@ public final class InvalidUserEmailException extends DomainException {
   }
 
   public static InvalidUserEmailException becauseValueIsEmpty() {
-    // VIOLACIÓN Regla 10: texto hardcodeado directamente — debe ser una constante.
     return new InvalidUserEmailException(EMAIL_EMPTY_MESSAGE);
   }
 
   public static InvalidUserEmailException becauseFormatIsInvalid(final String email) {
-    // VIOLACIÓN Regla 10: texto hardcodeado directamente — debe ser una constante.
     return new InvalidUserEmailException(
         String.format(EMAIL_INVALID_FORMAT_TEMPLATE, email));
   }

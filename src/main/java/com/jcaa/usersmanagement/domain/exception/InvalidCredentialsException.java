@@ -11,13 +11,10 @@ public final class InvalidCredentialsException extends DomainException {
   }
 
   public static InvalidCredentialsException becauseCredentialsAreInvalid() {
-    // VIOLACIÓN Regla 10: texto de error hardcodeado directamente.
-    // Debe usarse una constante con nombre descriptivo en lugar de un String literal.
     return new InvalidCredentialsException(INVALID_CREDENTIALS_MESSAGE);
   }
 
   public static InvalidCredentialsException becauseUserIsNotActive() {
-    // VIOLACIÓN Regla 10: texto de error hardcodeado directamente.
     return new InvalidCredentialsException(USER_NOT_ACTIVE_MESSAGE);
   }
 }

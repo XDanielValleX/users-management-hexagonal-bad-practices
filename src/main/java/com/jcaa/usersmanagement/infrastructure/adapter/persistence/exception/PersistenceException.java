@@ -1,7 +1,5 @@
 package com.jcaa.usersmanagement.infrastructure.adapter.persistence.exception;
 
-// VIOLACIÓN Regla 10: todos los mensajes de error están hardcodeados directamente en los métodos
-// fábrica, en vez de estar definidos como constantes con nombre descriptivo en la clase.
 public final class PersistenceException extends RuntimeException {
 
   private static final String SAVE_FAILED_TEMPLATE = "Failed to save user with ID: '%s'.";

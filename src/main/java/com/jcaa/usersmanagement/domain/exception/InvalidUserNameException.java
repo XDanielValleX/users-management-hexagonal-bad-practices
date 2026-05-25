@@ -11,12 +11,10 @@ public final class InvalidUserNameException extends DomainException {
   }
 
   public static InvalidUserNameException becauseValueIsEmpty() {
-    // VIOLACIÓN Regla 10: texto hardcodeado directamente — debe ser una constante.
     return new InvalidUserNameException(NAME_EMPTY_MESSAGE);
   }
 
   public static InvalidUserNameException becauseLengthIsTooShort(final int minimumLength) {
-    // VIOLACIÓN Regla 10: texto hardcodeado directamente — debe ser una constante.
     return new InvalidUserNameException(
         String.format(NAME_TOO_SHORT_TEMPLATE, minimumLength));
   }
