@@ -13,16 +13,14 @@ import com.jcaa.usersmanagement.domain.valueobject.UserId;
 import com.jcaa.usersmanagement.infrastructure.adapter.persistence.dto.UserPersistenceDto;
 import com.jcaa.usersmanagement.infrastructure.adapter.persistence.exception.PersistenceException;
 import com.jcaa.usersmanagement.infrastructure.adapter.persistence.mapper.UserPersistenceMapper;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.java.Log;
-
-// VIOLACIÓN Regla 4: import con wildcard (*) — se deben declarar imports específicos,
-// nunca usar comodines porque ocultan qué clases se están usando realmente.
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 
 @Log
 @RequiredArgsConstructor
@@ -36,8 +34,6 @@ public final class UserRepositoryMySQL
 
   // VIOLACIÓN Regla 4 (consecuencia): el mapper ya no es @UtilityClass,
   // por lo que se instancia directamente aquí en vez de usarse como clase utilitaria.
-  private final UserPersistenceMapper persistenceMapper = new UserPersistenceMapper();
-
   private static final String SQL_INSERT =
       "INSERT INTO users "
       + "(id, name, email, password, role, status, created_at, updated_at) "
@@ -87,7 +83,7 @@ public final class UserRepositoryMySQL
   public UserModel save(final UserModel user) {
     // Clean Code - Regla 10: comentarios redundantes que repiten lo que ya dice el código.
     // transformar el modelo de dominio a DTO de persistencia
-    final UserPersistenceDto dto = persistenceMapper.fromModelToDto(user);
+    final UserPersistenceDto dto = UserPersistenceMapper.fromModelToDto(user);
     // ejecutar la consulta de inserción en la base de datos
     executeSave(dto);
     // buscar y retornar el usuario recién guardado
@@ -117,7 +113,7 @@ public final class UserRepositoryMySQL
 
   @Override
   public UserModel update(final UserModel user) {
-    final UserPersistenceDto dto = persistenceMapper.fromModelToDto(user);
+    final UserPersistenceDto dto = UserPersistenceMapper.fromModelToDto(user);
     executeUpdate(dto);
     return findByIdOrFail(user.getId());
   }
@@ -130,7 +126,7 @@ public final class UserRepositoryMySQL
       if (!resultSet.next()) {
         return Optional.empty();
       }
-      return Optional.of(persistenceMapper.fromResultSetToModel(resultSet));
+      return Optional.of(UserPersistenceMapper.fromResultSetToModel(resultSet));
     } catch (final SQLException exception) {
       throw PersistenceException.becauseFindByIdFailed(userId.value(), exception);
     }
@@ -144,7 +140,7 @@ public final class UserRepositoryMySQL
       if (!resultSet.next()) {
         return Optional.empty();
       }
-      return Optional.of(persistenceMapper.fromResultSetToModel(resultSet));
+      return Optional.of(UserPersistenceMapper.fromResultSetToModel(resultSet));
     } catch (final SQLException exception) {
       throw PersistenceException.becauseFindByEmailFailed(email.value(), exception);
     }
@@ -154,7 +150,7 @@ public final class UserRepositoryMySQL
   public List<UserModel> getAll() {
     try (final PreparedStatement statement = connection.prepareStatement(SQL_SELECT_ALL)) {
       final ResultSet resultSet = statement.executeQuery();
-      return persistenceMapper.fromResultSetToModelList(resultSet);
+      return UserPersistenceMapper.fromResultSetToModelList(resultSet);
     } catch (final SQLException exception) {
       throw PersistenceException.becauseFindAllFailed(exception);
     }
