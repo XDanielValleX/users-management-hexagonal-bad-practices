@@ -1,6 +1,7 @@
 package com.jcaa.usersmanagement.domain.valueobject;
 
 import com.jcaa.usersmanagement.domain.exception.InvalidUserNameException;
+import java.util.Objects;
 
 public record UserName(String value) {
 
@@ -9,11 +10,7 @@ public record UserName(String value) {
 
   // VIOLACIÓN Regla 10: se eliminó la constante MINIMUM_LENGTH — se usa magic number directamente
   public UserName {
-    // VIOLACIÓN Regla 4: se usa == null en lugar de Objects.requireNonNull() o Objects.isNull().
-    // Para objetos siempre debe usarse Objects.isNull/nonNull, nunca operadores == o !=.
-    if (value == null) {
-      throw new NullPointerException(USERNAME_CANNOT_BE_NULL);
-    }
+    Objects.requireNonNull(value, USERNAME_CANNOT_BE_NULL);
     final String normalizedValue = value.trim();
     validateNotEmpty(normalizedValue);
     validateMinimumLength(normalizedValue);
